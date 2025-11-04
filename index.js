@@ -1,6 +1,7 @@
 import express from 'express'
 import aggregateRouter from './src/routes/aggregate.js'
 import { fetchWeather } from './src/services/fetch-weather.js'
+import { fetchQuoute } from './src/services/fetch-quote.js'
 
 console.log(typeof (aggregateRouter))
 
@@ -20,5 +21,9 @@ app.listen(port, () => {
 })
 
 fetchWeather(50.45, 30.52).
+  then(response => console.log(response))
+  .catch(err => console.error(err))
+
+fetchQuoute().
   then(response => console.log(response))
   .catch(err => console.error(err))
