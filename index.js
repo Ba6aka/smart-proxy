@@ -1,7 +1,8 @@
 import express from 'express'
 import aggregateRouter from './src/routes/aggregate.js'
+import { fetchWeather } from './src/services/fetch-weather.js'
 
-console.log(typeof(aggregateRouter))
+console.log(typeof (aggregateRouter))
 
 const app = express()
 const port = process.env.PORT || 1338
@@ -17,3 +18,7 @@ app.get('/', (request, response) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
 })
+
+fetchWeather(50.45, 30.52).
+  then(response => console.log(response))
+  .catch(err => console.error(err))
