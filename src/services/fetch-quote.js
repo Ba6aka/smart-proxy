@@ -1,8 +1,20 @@
 export async function fetchQuoute() {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 3000)
   const url = `https://zenquotes.io/api/quotes/random`
 
-  const response = await fetch(url)
-  const quoute = await response.json()
+  try {
+    const response = await fetch(url)
+    const quoute = await response.json()
 
-  return quoute[0]?.q
+    clearTimeout(timeout)
+
+    return quoute[0]?.q
+  } catch (err) {
+    if (err.name === "AbortError") {
+      console.log("⏱️Request exceeded waiting time")
+    } else {
+      console.log("❌ error:", err.message)
+    }
+  }
 }
