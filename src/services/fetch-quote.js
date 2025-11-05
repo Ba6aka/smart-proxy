@@ -1,4 +1,4 @@
-export async function fetchQuoteS() {
+export async function fetchQuote() {
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 3000)
   const url = `https://zenquotes.io/api/quotes/random`
