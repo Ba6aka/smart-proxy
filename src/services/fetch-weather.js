@@ -1,13 +1,11 @@
 export async function fetchWeather(latitude, longitude) {
   const controller = new AbortController
-  const timeout = setTimeout(() => controller.abort(), 3000)
+  const timeout = setTimeout(() => controller.abort(), 30000)
   const url =
-    `https://api.open-meteo.com/v1/forecast?
-  latitude=${latitude}&longitude=${longitude}
-  &current_weather=true`
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
 
   try {
-    const response = await fetch(url)
+    const response = await fetch(url, { signal: controller.signal })
     const data = await response.json()
     clearTimeout(timeout)
 
